@@ -1,0 +1,51 @@
+#Matrix {
+    position: fixed;
+    top:0;
+    left:0;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index:0;
+    pointer-events: none;
+}
+.bh1index {
+    background: black;
+    position: relative;
+    z-index:1;
+    color: white;
+    font-family: "Lucida Console", monospace;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0,0,0,.6);
+}
+
+.bp1index{
+
+    background: black;
+    position: relative;
+    z-index: 1;
+    color: green;
+    font-family: "Lucida Console", monospace;
+
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+
+    width: 90%;
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+
+    border: 2px solid #00FF66;
+    background-color: rgba(0,0,0,.9);
+}
+
+body {
+    margin: 0;
+    background: black;
+}

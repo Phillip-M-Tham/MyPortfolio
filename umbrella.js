@@ -67,12 +67,40 @@ function drawUmbrella(cx, cy, radius, angle){
         ctx.moveTo(0,0);
         const startAngle= (i * Math.PI/4); // 8 segments for 360 degrees
         const endAngle= startAngle + Math.PI/4;
+        const midAngle= (startAngle + endAngle)/2;
 
-        ctx.arc(0,0,radius, startAngle,endAngle);
+        //first edge
+        const x1 = radius * Math.cos(startAngle);
+        const y1 = radius * Math.sin(startAngle);
+        ctx.lineTo(x1,y1);
+       
+        //second edge
+        const x2= radius * Math.cos(endAngle);
+        const y2= radius * Math.sin(endAngle);
+
+        //control point for curve (pulling towards center for a dome shape)
+        const curveRadius = radius * .85; // how much the curve pulls outward
+        const cxCurve=curveRadius * Math.cos(midAngle);
+        const cyCurve=curveRadius * Math.sin(midAngle);
+
+        //draw curve
+        ctx.quadraticCurveTo(cxCurve, cyCurve, x2, y2);
         ctx.closePath();
 
-        ctx.fillStyle= (i % 2 ===0)? 'red': 'white';
+        const gradient = ctx.createRadialGradient(0, 0, radius*0.1, 0, 0, radius); //inner glow and outter edge
+        if ( i % 2 === 0) {
+            gradient.addColorStop(0, 'rgba(255, 80, 80, 0.8)'); // bright red center
+            gradient.addColorStop(1, 'rgba(120, 0, 0, 0.4)'); // darker red edges
+        } else {
+            gradient.addColorStop(0, 'rgba(255,255,255,0.4)');
+            gradient.addColorStop(1, 'rgba(200,200,200,0.2)');
+        }
+        ctx.fillStyle = gradient;
         ctx.fill();
+
+        ctx.strokeStyle = 'rgba(255,255,255,.05)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
     }
     ctx.restore();
 }

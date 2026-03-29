@@ -111,6 +111,32 @@
     flex-direction: column;
     gap: 30px; /* Hidden by default */
 }
+/*Umbrella Terminal algorithms buttons*/
+.algobtn{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba(255, 80,80,0.85);
+    font-family: "Share Tech Mono", monospace;
+    font-size: 14px;
+    text-align: left;
+    cursor: pointer;
+    padding: 2px 0;
+}
+.algobtn::before{
+    content: ">";
+    color: rgba(255, 80,80,0.6);
+}
+.algobtn:hover{
+    color: white;
+    text-shadow: 0 0 6px rgba(255,0,0,0.8);
+    background: rgba(255,0,0,0.08);
+}
+.algobtn:active{
+    color: rgba(255,120,120,1);
+    text-shadow: 0 0 10px rgba(255,0,0,1);
+}
+
 body {
     margin: 0;
     background: black;

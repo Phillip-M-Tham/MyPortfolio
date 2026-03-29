@@ -1,3 +1,4 @@
+/*Matrix canvas*/
 #Matrix {
     position: fixed;
     top:0;
@@ -9,11 +10,11 @@
     z-index:0;
     pointer-events: none;
 }
-
+/*Umbrella canvas*/
 #Umbrella{
     position: fixed;
 }
-
+/*Umbrella logo*/
 #UmbrellaLogoText {
     position: fixed;
     bottom: 20px;
@@ -21,20 +22,21 @@
     z-index: 1000;
     pointer-events: none;
 }
-
+/*Umbrella logo UMBRELLA*/
 #umbrellalogotext1{
-    font-size: 20px;
+    font-size: 30px;
     font-weight: bold;
     color: rgba(255,255,255,0.4);
 }
+/*Umbrella logo CORPORATION*/
 #umbrellalogotext2{
-    font-size: 12px;
+    font-size: 15px;
     font-weight: bold;
     color: rgba(255,255,255,0.25);
     display: block;
-    margin-left: 25px;
+    margin-left: 55px;
 }
-
+/*Matrix Index page header */
 .bh1index {
     background: black;
     position: relative;
@@ -48,7 +50,7 @@
     text-align: center;
     background-color: rgba(0,0,0,.6);
 }
-
+/*Matrix Index page paragraph1 */
 .bp1index{
 
     background: black;
@@ -71,6 +73,44 @@
     background-color: rgba(0,0,0,.9);
 }
 
+/*Umbrealla Algorithms page header*/
+.ah1 {
+    background: black;
+    position: relative;
+    z-index:1;
+    color: white;
+    font-family: "Share Tech Mono", monospace;
+    background-color: rgba(0,0,0,0.3);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/*Umbrella Terminal*/
+#UmbrellaTerminal {
+    position: relative;
+    width: 90%;
+    max-width: 700px;
+    margin: 3rem auto;
+    padding: 2rem;
+    border: 2px solid rgba(255,255,255,0.7);
+
+    background: black;
+    color: white;
+    font-family: "Share Tech Mono", monospace;
+    z-index: 1;
+    background-color: rgba(0,0,0,0.3);
+    
+    display: flex;
+}
+/*Umbrella Terminal Body*/
+#UmbrellaTerminalBody {
+    display: flex;
+    flex-direction: column;
+    gap: 30px; /* Hidden by default */
+}
 body {
     margin: 0;
     background: black;

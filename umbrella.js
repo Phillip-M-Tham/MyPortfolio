@@ -35,19 +35,40 @@ function drawBaseLighting() {
 
 }
 
+function drawGrid(){
+    const spacing = 80;//pixels between lines
+    ctx.strokeStyle = "rgba(255,0,0,0.15)";
+    ctx.lineWidth = 1;
+
+    //vertical lines
+    for( let x=0; x< canvas.width;  x += spacing){
+        ctx.beginPath();
+        ctx.moveTo(x,0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+    }
+    //horizontal lines
+    for(let y=0; y<canvas.height; y+= spacing){
+        ctx.beginPath();
+        ctx.moveTo(0,y);
+        ctx.lineTo(canvas.width, y);
+        ctx.stroke();
+    }    
+}
+
 function glow(){
     t+= 0.03;
     drawBaseLighting();
+    drawGrid();
     requestAnimationFrame(glow);
 }
 
 glow();
-
 
 //update dynamically when the window is resized
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 
-    glow();
+    //drawBaseLighting();
 });

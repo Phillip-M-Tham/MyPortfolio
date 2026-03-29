@@ -9,11 +9,15 @@
     z-index:0;
     pointer-events: none;
 }
+
+#Umbrella{
+    position: block;
+}
 .bh1index {
     background: black;
     position: relative;
     z-index:1;
-    color: white;
+    color: green;
     font-family: "Lucida Console", monospace;
 
     display: flex;

@@ -98,11 +98,24 @@ function drawUmbrella(cx, cy, radius, angle){
         ctx.fillStyle = gradient;
         ctx.fill();
 
-        ctx.strokeStyle = 'rgba(255,255,255,.05)';
-        ctx.lineWidth = 1;
+        ctx.strokeStyle = 'rgba(255,255,255,.06)';
+        ctx.lineWidth = 3;
         ctx.stroke();
     }
     ctx.restore();
+}
+
+function drawVignette(){
+    const vignette = ctx.createRadialGradient(canvas.width/2, canvas.height/2, 0, canvas.width/2, canvas.height/2, canvas.width/2);//center radius to edge
+
+    vignette.addColorStop(0, 'rgba(0,0,0,0)'); //center is transparent
+    vignette.addColorStop(1, 'rgba(0,0,0,0.6)'); // subtle darkening
+
+    ctx.save();
+    ctx.fillStyle = vignette;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+
 }
 
 function glow(){
@@ -111,6 +124,7 @@ function glow(){
     drawBaseLighting();
     drawGrid();
     drawUmbrella(canvas.width/2, canvas.height/2, 300, umbrellaRotation);
+    drawVignette();
     requestAnimationFrame(glow);
 }
 

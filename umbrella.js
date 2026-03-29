@@ -5,6 +5,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let t=0;
+let umbrellaRotation= 0; //initial rotation angle in radians
 
 function drawBaseLighting() {
     const pulse = (Math.sin(t) +1)/2; // 0 to 1
@@ -56,10 +57,32 @@ function drawGrid(){
     }    
 }
 
+function drawUmbrella(cx, cy, radius, angle){
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle); //spinning effect
+
+    for(let i=0; i<8; i++){
+        ctx.beginPath();
+        ctx.moveTo(0,0);
+        const startAngle= (i * Math.PI/4); // 8 segments for 360 degrees
+        const endAngle= startAngle + Math.PI/4;
+
+        ctx.arc(0,0,radius, startAngle,endAngle);
+        ctx.closePath();
+
+        ctx.fillStyle= (i % 2 ===0)? 'red': 'white';
+        ctx.fill();
+    }
+    ctx.restore();
+}
+
 function glow(){
     t+= 0.03;
+    umbrellaRotation += 0.005; //rotate umbrella over time
     drawBaseLighting();
     drawGrid();
+    drawUmbrella(canvas.width/2, canvas.height/2, 300, umbrellaRotation);
     requestAnimationFrame(glow);
 }
 
@@ -69,6 +92,4 @@ glow();
 window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
-    //drawBaseLighting();
 });

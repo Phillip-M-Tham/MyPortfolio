@@ -11,8 +11,30 @@
 }
 
 #Umbrella{
-    position: block;
+    position: fixed;
 }
+
+#UmbrellaLogoText {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#umbrellalogotext1{
+    font-size: 20px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.4);
+}
+#umbrellalogotext2{
+    font-size: 12px;
+    font-weight: bold;
+    color: rgba(255,255,255,0.25);
+    display: block;
+    margin-left: 25px;
+}
+
 .bh1index {
     background: black;
     position: relative;

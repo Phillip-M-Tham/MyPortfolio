@@ -158,6 +158,7 @@ bfsButton.addEventListener('click', async() => {
 
     //DISPLAY MAZE IN TERMINAL
     const mazeBlock = document.createElement('pre');
-    mazeBlock.textContent = myMaze.map(row => row.join('')).join('\n');
+    mazeBlock.textContent = printMaze(myMaze);
+    //mazeBlock.textContent = myMaze.map(row => row.join('')).join('\n');
     terminalContent.appendChild(mazeBlock);
 });

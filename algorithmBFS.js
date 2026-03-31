@@ -14,3 +14,18 @@ async function loadMaze(){
         return null;
     }
 }
+//function to turn 2d array into usable pre block string
+function printMaze(maze){
+    let block = '';
+    let row =0;
+    let col = 0;
+    for(row=0; row<maze.length; row++){
+        for(col=0; col < maze[row].length; col ++){
+            block += maze[row][col]
+        }
+        if(row < maze.length -1){
+            block += '\n';
+        }
+    }
+    return block;
+}

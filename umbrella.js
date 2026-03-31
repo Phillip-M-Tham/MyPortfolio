@@ -143,7 +143,7 @@ bfsButton.addEventListener('click', async() => {
     terminalContent.classList.add('expanded');
     terminalContent.innerHTML = `
         <p>> Loading Breadth First Search...</p>
-        <p>> Breadth First Search (BFS) selected.</p>
+        <p>> Breadth First Search (BFS) is an algorithm that visits each node level by level from a specified starting point. This requires a queue that conducts First In First Out(FIFO), a list for visited nodes, and a method to track a valid path. This is designed to find the shortest path. </p>
     `;
 
     const myMaze = await loadMaze();
@@ -159,6 +159,18 @@ bfsButton.addEventListener('click', async() => {
     //DISPLAY MAZE IN TERMINAL
     const mazeBlock = document.createElement('pre');
     mazeBlock.textContent = printMaze(myMaze);
-    //mazeBlock.textContent = myMaze.map(row => row.join('')).join('\n');
     terminalContent.appendChild(mazeBlock);
+    //center the maze
+    mazeBlock.style.textAlign="center"
+    //Analyze maze
+    const analyzeMazeBlock = document.createElement('p');
+    const {totalRows,totalColumns,startPos,endPos} =analyzeMaze(myMaze);
+    analyzeMazeBlock.innerHTML= `
+        > Analyzing maze...<br>
+        > Map Key: 1=walls, 0=valid spot, S=Starting Position, F =End Position<br>
+        > Total size of maze: ${totalRows} x ${totalColumns}<br>
+        > Starting Position: ${startPos}<br>
+        > End Position: ${endPos}<br>
+    `;
+    terminalContent.appendChild(analyzeMazeBlock);
 });

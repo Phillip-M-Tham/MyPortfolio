@@ -135,3 +135,14 @@ window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
+//EXPANDING TERMINAL CONTENT
+const terminalContent= document.getElementById('UmbrellaTerminalContent');
+const bfsButton= document.querySelector('[data-algo="bfs"]');
+
+bfsButton.addEventListener('click', () => {
+    terminalContent.classList.add('expanded');
+    terminalContent.innerHTML = `
+        <p>> Loading Breadth First Search...</p>
+        <p>> Breadth First Search (BFS) selected.</p>
+    `;
+});

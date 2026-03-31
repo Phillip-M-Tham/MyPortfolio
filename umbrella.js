@@ -139,10 +139,25 @@ window.addEventListener('resize', () => {
 const terminalContent= document.getElementById('UmbrellaTerminalContent');
 const bfsButton= document.querySelector('[data-algo="bfs"]');
 
-bfsButton.addEventListener('click', () => {
+bfsButton.addEventListener('click', async() => {
     terminalContent.classList.add('expanded');
     terminalContent.innerHTML = `
         <p>> Loading Breadth First Search...</p>
         <p>> Breadth First Search (BFS) selected.</p>
     `;
+
+    const myMaze = await loadMaze();
+    
+    //ERROR HANDLING
+    if(!myMaze){
+        const errorLine = document.createElement('p');
+        errorLine.textContent = '> Error: Failed to load maze.txt';
+        terminalContent.appendChild(errorLine);
+        return;
+    }
+
+    //DISPLAY MAZE IN TERMINAL
+    const mazeBlock = document.createElement('pre');
+    mazeBlock.textContent = myMaze.map(row => row.join('')).join('\n');
+    terminalContent.appendChild(mazeBlock);
 });

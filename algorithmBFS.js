@@ -52,8 +52,95 @@ function analyzeMaze(theMaze){
 function bfs(theMaze,startPos,totalRows,totalColumns){
     let allRows=totalRows;
     let allCols=totalColumns;
+    let tempRow =0;
+    let tempCol =0;
     //This is the queue as an array to process all cells in the maze
-    let queue=[[startPos[0],startPos[1],[startPos[0],startPos[1]]]]
+    let queue=[
+        [startPos[0],startPos[1],[[startPos[0],startPos[1]]]]
+    ]
     let visited =[];
-    
+    //while queue is not empty run this while loop
+    while(queue.length > 0){
+        let [curRow,curCol,path] = queue.shift(); //sets curRow,curCol and path to first item in Queue and removes first item in the queue
+        //Check if current spot is the goal
+        if(theMaze[curRow][curCol] ==="F"){
+            return path;
+        }
+        //visited.push([curRow,curCol]); //update visited array with current coordinates
+
+        //check directions up, left, down , right
+            //check boundaries first
+                //check if you reached the goal
+                    //check if its a valid spot
+                        //check if it already visited
+        //up (5,5) -> (4,5)
+        tempRow= curRow -1;
+        tempCol= curCol;
+        if(tempRow >=0){
+            let newPath = [...path, [tempRow,tempCol]]
+            if(theMaze[tempRow][tempCol]==="F"){
+                return newPath;
+            }
+            if(theMaze[tempRow][tempCol]==="0"){
+                if(!visited.some(function(visitedCoordinate){
+                    return visitedCoordinate[0]===tempRow && visitedCoordinate[1]===tempCol;
+                })){
+                    visited.push([tempRow,tempCol]);
+                    queue.push([tempRow, tempCol, newPath]);
+                }            
+            }
+        }
+        //left (5,5) -> (5,4)
+        tempRow=curRow;
+        tempCol=curCol -1;
+        if(tempCol >=0){
+            let newPath= [...path, [tempRow,tempCol]]
+            if(theMaze[tempRow][tempCol]==="F"){
+                return newPath;
+            }
+            if(theMaze[tempRow][tempCol]==="0"){
+                if(!visited.some(function(visitedCoordinate){
+                    return visitedCoordinate[0]===tempRow && visitedCoordinate[1]===tempCol;
+                })){
+                    visited.push([tempRow,tempCol]);
+                    queue.push([tempRow,tempCol,newPath]);
+                }
+            }
+        }
+        //check down (5,5) -> (6,5)
+        tempRow=curRow+1;
+        tempCol=curCol;
+        if(tempRow <= allRows){
+            let newPath= [...path, [tempRow,tempCol]]
+            if(theMaze[tempRow][tempCol]==="F"){
+                return newPath;
+            }
+            if(theMaze[tempRow][tempCol]==="0"){
+                if(!visited.some(function(visitedCoordinate){
+                    return visitedCoordinate[0]===tempRow && visitedCoordinate[1]===tempCol;
+                })){
+                    visited.push([tempRow,tempCol]);
+                    queue.push([tempRow,tempCol,newPath]);
+                }
+            }
+        }
+        //check right (5,5) -> (5,6)
+        tempRow=curRow;
+        tempCol=curCol +1;
+        if(tempCol <= allCols){
+            let newPath=[...path, [tempRow,tempCol]]
+            if(theMaze[tempRow][tempCol]==="F"){
+                return newPath;
+            }
+            if(theMaze[tempRow][tempCol]==="0"){
+                if(!visited.some(function(visitedCoordinate){
+                    return visitedCoordinate[0]===tempRow && visitedCoordinate[1]===tempCol;
+                })){
+                    visited.push([tempRow,tempCol]);
+                    queue.push([tempRow,tempCol,newPath]);
+                }
+            }
+        }
+    }
+    return null;
 }

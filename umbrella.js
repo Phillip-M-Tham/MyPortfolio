@@ -173,4 +173,12 @@ bfsButton.addEventListener('click', async() => {
         > End Position: ${endPos}<br>
     `;
     terminalContent.appendChild(analyzeMazeBlock);
+    //Find Valid solution using BFS
+    const statusUpdate = document.createElement('p');
+    statusUpdate.textContent='> Generating Valid Path...'
+    terminalContent.appendChild(statusUpdate);
+    const validPath= document.createElement('p');
+    const bfsPath= bfs(myMaze,startPos,totalRows,totalColumns);
+    validPath.textContent= JSON.stringify(bfsPath);
+    terminalContent.appendChild(validPath);
 });

@@ -144,3 +144,51 @@ function bfs(theMaze,startPos,totalRows,totalColumns){
     }
     return null;
 }
+
+//function Conduct DFS
+function dfs(theMaze,curRow,curCol,dfsPath,dfsVisited){
+    //set up base cases
+    //check booundaries
+    if(curRow <0 || curRow >= theMaze.length || curCol <0 || curCol >= theMaze[0].length){
+        return null;
+    }
+    //check if its a wall
+    if(theMaze[curRow][curCol]==="1"){
+        return null;
+    }
+    //update path
+    let newPath = [...dfsPath, [curRow,curCol]]
+    //check if its the goal
+    if(theMaze[curRow][curCol]==="F"){
+        return newPath;
+    }
+    //check if its already visited
+    if(dfsVisited.some(function(visitedSpots){
+        return visitedSpots[0]===curRow && visitedSpots[1]===curCol;
+    })){
+        return null;
+    }
+    //update visited
+    dfsVisited.push([curRow,curCol]);
+    //check right
+    let rightPath = dfs(theMaze,curRow,curCol+1,newPath,dfsVisited);
+    if(rightPath !== null){
+        return rightPath;
+    }
+    //check down
+    let downPath = dfs(theMaze,curRow+1,curCol,newPath,dfsVisited);
+    if(downPath !== null){
+        return downPath;
+    }
+    //check left
+    let leftPath = dfs(theMaze,curRow,curCol-1,newPath,dfsVisited);
+    if(leftPath !== null){
+        return leftPath;
+    }
+    //check up
+    let upPath = dfs(theMaze,curRow-1,curCol,newPath,dfsVisited);
+    if(upPath !== null){
+        return upPath;
+    }
+    return null;
+}

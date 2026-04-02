@@ -161,7 +161,7 @@ bfsButton.addEventListener('click', async() => {
     `;
 
     const myMaze = await loadMaze();
-    
+    //console.log('Maze loaded:', myMaze);
     //ERROR HANDLING
     if(!myMaze){
         const errorLine = document.createElement('p');
@@ -238,4 +238,16 @@ dfsButton.addEventListener('click', async() => {
         > End Position: ${endPos}<br>
     `;
     terminalContent.appendChild(analyzeMazeBlock);
+    //find valid solution using DFS
+    const statusUpdate = document.createElement('p');
+    statusUpdate.textContent='> Generating Valid Path...'
+    terminalContent.appendChild(statusUpdate);
+    //set up variables for recursionDFS
+    let visitedDFS = [];
+    let path = [];
+    const validPath = document.createElement('p');
+    const dfsPath= dfs(myMaze,startPos[0],startPos[1],path,visitedDFS);
+    console.log('DFS result:', dfsPath);
+    validPath.textContent= JSON.stringify(dfsPath);
+    terminalContent.appendChild(validPath);
 });

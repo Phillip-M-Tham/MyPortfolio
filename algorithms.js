@@ -47,6 +47,30 @@ function analyzeMaze(theMaze){
     }
     return {totalRows,totalColumns,startPos,endPos};
 }
+//function to print out solution
+function setSolution(theMaze,theSolution){
+    let html="";
+    for(let row=0; row< theMaze.length;row++){
+         for(let col=0;col <theMaze[row].length;col++){
+            let curSpot= theMaze[row][col]
+            
+            if(theSolution.some(function(solutionSpot){
+                return solutionSpot[0]===row && solutionSpot[1]===col;
+            }))
+            {//if row column is in the solution path, append to html with green characters
+                if(curSpot=="0"){
+                    html += `<span style="color:green";>x</span>`
+                }else{
+                    html += `<span style="color:green";>${curSpot}</span>`    
+                }
+            }else{//cur spot is not part of the solution path
+                html += curSpot;
+            }
+         }
+         html += "\n";
+    }
+    return html
+}
 
 //function Conduct BFS
 function bfs(theMaze,startPos,totalRows,totalColumns){

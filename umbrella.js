@@ -161,7 +161,6 @@ bfsButton.addEventListener('click', async() => {
     `;
 
     const myMaze = await loadMaze();
-    //console.log('Maze loaded:', myMaze);
     //ERROR HANDLING
     if(!myMaze){
         const errorLine = document.createElement('p');
@@ -195,6 +194,21 @@ bfsButton.addEventListener('click', async() => {
     const bfsPath= bfs(myMaze,startPos,totalRows,totalColumns);
     validPath.textContent= JSON.stringify(bfsPath);
     terminalContent.appendChild(validPath);
+    //Analyze Solution
+    let totalSteps= bfsPath.length;
+    const analyzeSolution=document.createElement('p');
+    analyzeSolution.innerHTML=`
+        > Analyzing Solution...<br>
+        > Solution found in ${totalSteps} steps <br>
+        > printing solution path<br>
+    `;
+    terminalContent.appendChild(analyzeSolution);
+    //printing solution
+    const printedSolution=document.createElement('p');
+    printedSolution.innerHTML=setSolution(myMaze,bfsPath);
+    terminalContent.appendChild(printedSolution);
+    //Center solution
+    printedSolution.style.textAlign="center";
 });
 
 dfsButton.addEventListener('click', async() => {
@@ -226,7 +240,7 @@ dfsButton.addEventListener('click', async() => {
     mazeBlock.textContent = printMaze(myMaze);
     terminalContent.appendChild(mazeBlock);
     //center the maze
-    mazeBlock.style.textAlign="center"
+    mazeBlock.style.textAlign="center";
     //Analyze maze
     const analyzeMazeBlock = document.createElement('p');
     const {totalRows,totalColumns,startPos,endPos} =analyzeMaze(myMaze);
@@ -250,4 +264,19 @@ dfsButton.addEventListener('click', async() => {
     console.log('DFS result:', dfsPath);
     validPath.textContent= JSON.stringify(dfsPath);
     terminalContent.appendChild(validPath);
+    //Analyze Solution
+    let totalSteps= dfsPath.length;
+    const analyzeSolution=document.createElement('p');
+    analyzeSolution.innerHTML=`
+        > Analyzing Solution...<br>
+        > Solution found in ${totalSteps} steps <br>
+        > printing solution path<br>
+    `;
+    terminalContent.appendChild(analyzeSolution);
+    //printing solution
+    const printedSolution=document.createElement('p');
+    printedSolution.innerHTML=setSolution(myMaze,dfsPath);
+    terminalContent.appendChild(printedSolution);
+    //center solution
+    printedSolution.style.textAlign="center";
 });

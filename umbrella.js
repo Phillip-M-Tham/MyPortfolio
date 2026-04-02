@@ -136,10 +136,24 @@ window.addEventListener('resize', () => {
     canvas.height = window.innerHeight;
 });
 //EXPANDING TERMINAL CONTENT
+//BFS button setup
 const terminalContent= document.getElementById('UmbrellaTerminalContent');
 const bfsButton= document.querySelector('[data-algo="bfs"]');
+//DFS button setup
+const dfsButton= document.querySelector('[data-algo="dfs"]');
+let activeAlgorithm = null; // Track the currently active algorithm
 
 bfsButton.addEventListener('click', async() => {
+    //collapse terminal and load defualt
+    if(activeAlgorithm === 'bfs'){
+        terminalContent.classList.remove('expanded');
+        terminalContent.innerHTML = `
+           <p>> Awaiting algorithm selection...</p>
+        `;
+        activeAlgorithm = null; // Reset active algorithm
+        return;
+    }
+    activeAlgorithm = 'bfs'; // Set BFS as the active algorithm
     terminalContent.classList.add('expanded');
     terminalContent.innerHTML = `
         <p>> Loading Breadth First Search...</p>
@@ -181,4 +195,47 @@ bfsButton.addEventListener('click', async() => {
     const bfsPath= bfs(myMaze,startPos,totalRows,totalColumns);
     validPath.textContent= JSON.stringify(bfsPath);
     terminalContent.appendChild(validPath);
+});
+
+dfsButton.addEventListener('click', async() => {
+    //collapse terminal and load defualt
+    if(activeAlgorithm === 'dfs'){
+        terminalContent.classList.remove('expanded');
+        terminalContent.innerHTML = `
+           <p>> Awaiting algorithm selection...</p>
+        `;
+        activeAlgorithm = null; // Reset active algorithm
+        return;
+    }
+    activeAlgorithm = 'dfs'; // Set DFS as the active algorithm
+    terminalContent.classList.add('expanded');
+    terminalContent.innerHTML = `
+        <p>> Loading Depth First Search...</p>
+        <p>> Depth First Search (DFS) is an algorithm that explores as far as possible along each path before backtracking. This requires a stack that conducts Last In First Out(LIFO), a list for visited nodes, and a method to track a valid path. This is not designed to find the shortest path, but can be more memory efficient than BFS in certain cases. </p>
+    `;
+    const myMaze = await loadMaze();
+    //ERROR HANDLING
+    if(!myMaze){
+        const errorLine = document.createElement('p');
+        errorLine.textContent = '> Error: Failed to load maze.txt';
+        terminalContent.appendChild(errorLine);
+        return;
+    }
+    //DISPLAY MAZE IN TERMINAL
+    const mazeBlock = document.createElement('pre');
+    mazeBlock.textContent = printMaze(myMaze);
+    terminalContent.appendChild(mazeBlock);
+    //center the maze
+    mazeBlock.style.textAlign="center"
+    //Analyze maze
+    const analyzeMazeBlock = document.createElement('p');
+    const {totalRows,totalColumns,startPos,endPos} =analyzeMaze(myMaze);
+    analyzeMazeBlock.innerHTML= `
+        > Analyzing maze...<br>
+        > Map Key: 1=walls, 0=valid spot, S=Starting Position, F =End Position<br>
+        > Total size of maze: ${totalRows} x ${totalColumns}<br>
+        > Starting Position: ${startPos}<br>
+        > End Position: ${endPos}<br>
+    `;
+    terminalContent.appendChild(analyzeMazeBlock);
 });

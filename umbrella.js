@@ -141,6 +141,8 @@ const terminalContent= document.getElementById('UmbrellaTerminalContent');
 const bfsButton= document.querySelector('[data-algo="bfs"]');
 //DFS button setup
 const dfsButton= document.querySelector('[data-algo="dfs"]');
+//Dijkstra button setup
+const dijkstraButton= document.querySelector('[data-algo="dijkstra"]');
 let activeAlgorithm = null; // Track the currently active algorithm
 
 bfsButton.addEventListener('click', async() => {
@@ -279,4 +281,22 @@ dfsButton.addEventListener('click', async() => {
     terminalContent.appendChild(printedSolution);
     //center solution
     printedSolution.style.textAlign="center";
+});
+
+dijkstraButton.addEventListener('click', async() => {
+    //collapse terminal and load defualt
+    if(activeAlgorithm === 'dijkstra'){
+        terminalContent.classList.remove('expanded');
+        terminalContent.innerHTML = `
+           <p>> Awaiting algorithm selection...</p>
+        `;
+        activeAlgorithm = null; // Reset active algorithm
+        return;
+    }
+    activeAlgorithm = 'dijkstra'; // Set Dijkstra as the active algorithm
+    terminalContent.classList.add('expanded');
+    terminalContent.innerHTML = `
+        <p>> Loading Dijkstra's Algorithm...</p>
+        <p>> Dijkstra's Algorithm is an algorithm to find the cheapest cost in a weighted system. It uses a priority queue to explore nodes based on the lowest cumulative cost from the starting point. The priority queue can be implemented using a min-heap in order to sort the cheapest node as the next node to explore. </p>
+    `;
 });

@@ -254,7 +254,7 @@ function getCost(theMaze,row,col){
     dict.set("0",1);
     dict.set("3",3);
     dict.set("4",4);
-    if(theMaze[row][col]==="0"){
+    if(theMaze[row][col]==="0" || theMaze[row][col]==="F"){
         return dict.get("0");
     }else if(theMaze[row][col]==="3"){
         return dict.get("3");
@@ -328,4 +328,72 @@ class minHeap{
             index=smallestIndex;
         }
     }
+}
+//function to conduct Dijkstra's algorithm
+function dijkstra(theMaze,startPos){
+    let {prevGrid,distGrid}= setGrids(theMaze);
+    let heap = new minHeap();
+    let startCost=0;
+    distGrid[startPos[0]][startPos[1]]= startCost;
+    heap.push([startCost,startPos[0],startPos[1]]);
+    while(heap.heap.length > 0){
+        let [curCost,curRow,curCol] = heap.pop();
+        console.log("POP:", curCost, curRow, curCol, theMaze[curRow][curCol]);
+        //check if we reached the goal
+        if(theMaze[curRow][curCol]==="F"){
+            return [curCost, prevGrid];
+        }
+        //check directions up (5,5)-> (4,5), left (5,5) -> (5,4), down (5,5) -> (6,5) , right (5,5) -> (5,6)
+        for(let [deltaRow,deltaCol] of [[-1,0],[0,-1],[1,0],[0,1]]){
+            let tempRow = curRow + deltaRow;
+            let tempCol = curCol + deltaCol;
+            let tempCost =0;
+            let tileCost=0;
+            //boundary check
+            if(0 <= tempRow && tempRow < theMaze.length && 0 <= tempCol && tempCol < theMaze[0].length){
+                //valid path check
+                if(theMaze[tempRow][tempCol]==="F"){
+                    //set tempCost for reaching goal
+                    tileCost = getCost(theMaze,tempRow,tempCol);
+                    tempCost= curCost + tileCost;
+                }else if(theMaze[tempRow][tempCol]==="0"){
+                    //set tempCost for reaching valid spot 0
+                    tileCost = getCost(theMaze,tempRow,tempCol);
+                    tempCost= curCost + tileCost;
+                }else if(theMaze[tempRow][tempCol]==="3"){
+                    //set tempCost for reaching valid spot 3
+                    tileCost = getCost(theMaze,tempRow,tempCol);
+                    tempCost= curCost + tileCost;
+                }else if(theMaze[tempRow][tempCol]==="4"){
+                    //set tempCost for reaching valid spot 4
+                    tileCost = getCost(theMaze,tempRow,tempCol);
+                    tempCost= curCost + tileCost;
+                }else{
+                    //we reached a wall skip this iteration
+                    continue;
+                }
+                //check if we found a cheaper path to the neighboring tile
+                if(tempCost < distGrid[tempRow][tempCol]){
+                    //update distance grid with new cheaper cost
+                    distGrid[tempRow][tempCol]= tempCost;
+                    //update previous node grid with current node
+                    prevGrid[tempRow][tempCol]=[curRow,curCol];
+                    //update heap with new cost and neighboring tile coordinates
+                    heap.push([tempCost,tempRow,tempCol]);
+                }
+            }
+        }
+    }
+    return [null, null];
+}
+//function to reconstruct path from Dijkstra's algorithm
+function reconstructPath(prevGrid,endPos){
+    let curPos = endPos;
+    let path = [];
+    while(curPos !== null){
+        path.push(curPos);
+        curPos = prevGrid[curPos[0]][curPos[1]];
+    }
+    path.reverse();
+    return path;
 }

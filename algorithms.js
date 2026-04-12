@@ -234,3 +234,98 @@ function setWeights(theMaze){
     }
     return theMaze;
 }
+//set distance tracker and previous node tracker for Dijkstra's algorithm
+function setGrids(theMaze){
+    prevGrid=[];
+    distGrid=[];
+    for(let row=0; row< theMaze.length; row++){
+        prevGrid[row]=[];
+        distGrid[row]=[];
+        for(let col=0; col < theMaze[row].length; col++){
+            prevGrid[row][col]=null;
+            distGrid[row][col]=Infinity;
+        }
+    }
+    return {prevGrid,distGrid};
+}
+//get tile cost
+function getCost(theMaze,row,col){
+    const dict = new Map();
+    dict.set("0",1);
+    dict.set("3",3);
+    dict.set("4",4);
+    if(theMaze[row][col]==="0"){
+        return dict.get("0");
+    }else if(theMaze[row][col]==="3"){
+        return dict.get("3");
+    }else if(theMaze[row][col]==="4"){
+        return dict.get("4");
+    }else{
+        //Error handling
+        console.error(`Invalid tile type at (${row},${col}): ${theMaze[row][col]}`);
+        return Infinity; // Treat invalid tiles as impassable
+    }
+}
+//set up priority queue for Dijkstra's algorithm
+class minHeap{
+    //each item in heap is [cost, row, col] for each tile in the maze
+    constructor(){
+        this.heap=[];
+    }
+    push(val){
+        this.heap.push(val);
+        this.bubbleUp();
+    }
+    pop(){
+        if(this.heap.length===1) return this.heap.pop();
+        const min = this.heap[0];
+        this.heap[0]= this.heap.pop();
+        this.bubbleDown();
+        return min;
+    }
+    peek(){
+        return this.heap[0];
+    }
+    bubbleUp(){
+        //set index to last item in heap
+        let index = this.heap.length -1;
+        while(index >0){
+            let parentIndex = Math.floor((index -1)/2);
+            if(this.heap[parentIndex][0] <= this.heap[index][0]){
+                break;
+            }
+            //swap parent and current index
+            [this.heap[parentIndex],this.heap[index]]=[this.heap[index],this.heap[parentIndex]];
+            index= parentIndex;
+        }
+    }
+    bubbleDown(){
+        let index=0;
+        while(index < this.heap.length){
+            let leftChildIndex = 2*index +1;
+            let rightChildIndex = 2*index +2;
+            let smallestIndex = index;
+            //check if left child exists in heap
+            if(leftChildIndex < this.heap.length){
+                //check if left child is smaller than current smallest
+                if(this.heap[leftChildIndex][0] < this.heap[smallestIndex][0]){
+                    smallestIndex = leftChildIndex;
+                }
+            }
+            //check if right child exists in heap
+            if(rightChildIndex < this.heap.length){
+                //check if right child is smaller than current smallest
+                if(this.heap[rightChildIndex][0] < this.heap[smallestIndex][0]){
+                    smallestIndex = rightChildIndex;
+                }
+            }
+            //stop if smallest index is current index
+            if(smallestIndex === index){
+                break;
+            }
+            //swap smallest index with current index
+            [this.heap[index],this.heap[smallestIndex]]=[this.heap[smallestIndex],this.heap[index]];
+            index=smallestIndex;
+        }
+    }
+}

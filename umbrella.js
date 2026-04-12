@@ -343,5 +343,20 @@ dijkstraButton.addEventListener('click', async() => {
         const dijkstraPath = reconstructPath(prevGrid, endPos);
         validPath.textContent= JSON.stringify(dijkstraPath);
         terminalContent.appendChild(validPath);
+        //Analyze Solution
+        let totalSteps= dijkstraPath.length;
+        const analyzeSolution=document.createElement('p');
+        analyzeSolution.innerHTML=`
+            > Analyzing Solution...<br>
+            > Solution found in ${totalSteps} steps with total cost of ${cost} <br>
+            > printing solution path<br>
+        `;
+        terminalContent.appendChild(analyzeSolution);
+        //printing solution
+        const printedSolution=document.createElement('p');
+        printedSolution.innerHTML=setSolution(myMaze,dijkstraPath);
+        terminalContent.appendChild(printedSolution);
+        //center solution
+        printedSolution.style.textAlign="center";
     }
 });

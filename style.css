@@ -90,21 +90,34 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
+    padding: 25px 0px;
+
 
     z-index:2000;
     color: white;
     font-family: "Share Tech Mono", monospace;
     
     display: flex;
-    justify-content: center;
     align-items: center;
+    /*justify-content: center;
+    align-items: center;*/
+}
+/*Set algorithm title*/
+#AlgorithmsTitle{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin:0;
+    color:white;
 }
 /*Setting navbar for Alogirthms page*/
 /* Setting up NavBar*/
 .ah1 nav{
     position: absolute;
-    top: 20px;
-    left: 50%;
+    top: 50%;
+    left: 15px;
+    transform:translateY(-50%);
+    margin-right: auto;
 }
 .ah1 nav ul{
     display: flex;
@@ -112,6 +125,11 @@
     list-style: none;
     padding: 0;
     margin: 0;
+}
+.ah1 nav a{
+    color: white;
+    font-family: "Share Tech Mono", monospace;
+    text-decoration: none;
 }
 /*Umbrella Terminal*/
 #UmbrellaTerminal {

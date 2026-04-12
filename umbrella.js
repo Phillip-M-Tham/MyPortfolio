@@ -299,4 +299,32 @@ dijkstraButton.addEventListener('click', async() => {
         <p>> Loading Dijkstra's Algorithm...</p>
         <p>> Dijkstra's Algorithm is an algorithm to find the cheapest cost in a weighted system. It uses a priority queue to explore nodes based on the lowest cumulative cost from the starting point. The priority queue can be implemented using a min-heap in order to sort the cheapest node as the next node to explore. </p>
     `;
+    //set up maze
+    let myMaze = await loadMaze();
+    //ERROR HANDLING
+    if(!myMaze){
+        const errorLine = document.createElement('p');
+        errorLine.textContent = '> Error: Failed to load maze.txt';
+        terminalContent.appendChild(errorLine);
+        return;
+    }
+    //scatter weights
+    myMaze = setWeights(myMaze);
+    //DISPLAY MAZE IN TERMINAL
+    const mazeBlock = document.createElement('pre');
+    mazeBlock.textContent = printMaze(myMaze);
+    terminalContent.appendChild(mazeBlock);
+    //center the maze
+    mazeBlock.style.textAlign="center";
+    //Analyze maze
+     const analyzeMazeBlock = document.createElement('p');
+    const {totalRows,totalColumns,startPos,endPos} =analyzeMaze(myMaze);
+    analyzeMazeBlock.innerHTML= `
+        > Analyzing maze...<br>
+        > Map Key: 1=walls, 0=valid spot with weight of 1, 3=valid spot with weight of 3, 4=valid spot with weight of 4,  S=Starting Position, F =End Position<br>
+        > Total size of maze: ${totalRows} x ${totalColumns}<br>
+        > Starting Position: ${startPos}<br>
+        > End Position: ${endPos}<br>
+    `;
+    terminalContent.appendChild(analyzeMazeBlock);
 });

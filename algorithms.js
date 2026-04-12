@@ -216,3 +216,21 @@ function dfs(theMaze,curRow,curCol,dfsPath,dfsVisited){
     }
     return null;
 }
+//function to set up random scatter of weights for Dijkstra's algorithm
+function setWeights(theMaze){
+    for(let row=0; row < theMaze.length; row++){
+        for(let col=0; col< theMaze[row].length; col++){
+            if(theMaze[row][col]==="0"){
+                let randomIndex = Math.floor(Math.random() *3);
+                if(randomIndex ===0){
+                    theMaze[row][col]="0";
+                }else if(randomIndex ===1){
+                    theMaze[row][col]="3";
+                }else{
+                    theMaze[row][col]="4";
+                }
+            }
+        }
+    }
+    return theMaze;
+}

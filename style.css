@@ -13,6 +13,12 @@
 /*Umbrella canvas*/
 #Umbrella{
     position: fixed;
+    top: 0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
 }
 /*Umbrella logo*/
 #UmbrellaLogoText {
@@ -36,20 +42,6 @@
     display: block;
     margin-left: 55px;
 }
-/*Matrix Index page header */
-.bh1index {
-    background: black;
-    position: relative;
-    z-index:1;
-    color: green;
-    font-family: "Lucida Console", monospace;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: rgba(0,0,0,.6);
-}
 /*Matrix Index page paragraph1 */
 .bp1index{
 
@@ -62,7 +54,8 @@
     display: flex;
     text-align: center;
     justify-content: center;
-    align-items: center;
+    align-items:center;
+    flex-direction: column;
 
     width: 90%;
     max-width: 700px;
@@ -72,27 +65,76 @@
     border: 2px solid #00FF66;
     background-color: rgba(0,0,0,.9);
 }
-
-/*Umbrealla Algorithms page header*/
-.ah1 {
-    background: black;
-    position: relative;
-    z-index:1;
+.bp1index a{
+    color: green;
+    font-family: "Lucida Console", monospace;
+}
+/*base navbar class setup*/
+.navbar {
+    background:  rgba(0,0,0,0.3);
+    border: 1px solid rgba(255,255,255,0.2);
+    backdrop-filter: blur(6px);
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    padding: 25px 0px;
+    z-index:2000;
+    display: flex;
+    align-items: center;
+}
+/*Set algorithm title*/
+#AlgorithmsTitle{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin:0;
+    color:white;
+    font-family: "Share Tech Mono", monospace;
+}
+/*Set home title*/
+#HomeTitle{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    color: green;
+    font-family: "Lucida Console", monospace;
+}
+/* Setting up NavBar*/
+.navbar nav{
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform:translateY(-50%);
+    margin-right: auto;
+}
+.navbar nav ul{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+.navbar-umbrella{
     color: white;
     font-family: "Share Tech Mono", monospace;
-    background-color: rgba(0,0,0,0.3);
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
 }
-
+.navbar-matrix{
+    color: green;
+    font-family: "Lucida Console", monospace;
+}
 /*Umbrella Terminal*/
 #UmbrellaTerminal {
     position: relative;
     width: 90%;
     max-width: 700px;
+    /*margin-top: 500px;*/
     margin: 3rem auto;
     padding: 2rem;
     border: 2px solid rgba(255,255,255,0.7);
@@ -154,5 +196,6 @@
 
 body {
     margin: 0;
+    padding-top: 90px;
     background: black;
 }
